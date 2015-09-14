@@ -32,7 +32,7 @@ window.onload = function(){
 }
 
 function iterateMandelbrot(){
-  ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
   iterations = document.getElementById("iterations").value;
 
   for(var x = 0; x < canvasWidth; x++){
