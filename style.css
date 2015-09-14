@@ -1,0 +1,28 @@
+#c
+{
+  display: block;
+  height: 1000;
+  weight: 1000;
+  z-index:-1;
+  background-color: black;
+}
+
+#main
+{
+  text-align: center;
+  z-index:-1;
+}
+
+#controls
+{
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+}
+
+.navbar-mandel
+{
+  background-color: black;
+  border-color: #919191;
+  color: white;
+}
