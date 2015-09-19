@@ -75,22 +75,7 @@ function chooseEscapeColor(iteration){
   } else if (iterationBetween(iteration, 18, 20)){
     ctx.fillStyle = "#e9ffda";
   }
-  // else if (iteration >= 12 && iteration < 15){
-  //   canDraw = true;
-  //   ctx.fillStyle = iterationColors[3];
-  // }
-  // else if (iteration >= 9 && iteration < 12){
-  //   canDraw = true;
-  //   ctx.fillStyle = iterationColors[2];
-  // }
-  // else if (iteration >= 6 && iteration < 9){
-  //   canDraw = true;
-  //   ctx.fillStyle = iterationColors[1];
-  // }
-  // else if (iteration > 1 && iteration < 6){
-  //   canDraw = true;
-  //   ctx.fillStyle = iterationColors[0];
-  // }
+
   else{
     canDraw = false;
   }
