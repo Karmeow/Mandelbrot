@@ -1,8 +1,8 @@
-// var canvasHeight = 5000;
-// var canvasWidth = 5000;
+var canvasHeight = 5000;
+var canvasWidth = 5000;
 
-var canvasHeight = window.innerHeight;
-var canvasWidth = window.innerWidth;
+//var canvasHeight = window.innerHeight;
+//var canvasWidth = window.innerWidth;
 
 // var minReal =
 // var maxReal =
