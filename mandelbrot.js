@@ -1,8 +1,8 @@
-var canvasHeight = 5000;
-var canvasWidth = 5000;
+//var canvasHeight = 5000;
+//var canvasWidth = 5000;
 
-//var canvasHeight = window.innerHeight;
-//var canvasWidth = window.innerWidth;
+var canvasHeight = window.innerHeight - 1;
+var canvasWidth = window.innerWidth - 1;
 
 // var minReal =
 // var maxReal =
@@ -25,13 +25,13 @@ window.onload = function(){
   mainDiv = document.getElementById("main");
   mainDiv.innerHTML += "<canvas id='mandelbrotCanvas' height='" + canvasHeight + "px' width='" + canvasWidth +" px'></canvas>";
 
-  canvas = document.getElementById("mandelbrotCanvas");
-  ctx = canvas.getContext("2d");
-
   iterateMandelbrot();
 }
 
 function iterateMandelbrot(){
+  canvas = document.getElementById("mandelbrotCanvas");
+  ctx = canvas.getContext("2d");
+
   ctx.clearRect(0, 0, canvasWidth, canvasHeight);
   iterations = document.getElementById("iterations").value;
 
@@ -68,12 +68,11 @@ function drawMandelbrot(complex){
 
 function chooseEscapeColor(iteration){
   canDraw = true;
-  if (iterationBetween(iteration, 40, 50)){
-    ctx.fillStyle = "#b7ff86";
-  } else if (iterationBetween(iteration, 20, 40)){
-    ctx.fillStyle = "#c4ffa7";
-  } else if (iterationBetween(iteration, 18, 20)){
-    ctx.fillStyle = "#e9ffda";
+
+  if (isWithinIterationPercent(iteration, 0.5)){
+    ctx.fillStyle = "orange";
+  } else if (isWithinIterationPercent(iteration, 0.2)){
+    ctx.fillStyle = "green";
   }
 
   else{
@@ -90,6 +89,6 @@ function square(number){
   return number*number;
 }
 
-function iterationBetween(iteration, lowIteration, highIteration){
-  return (iteration >= lowIteration && iteration < highIteration);
+function isWithinIterationPercent(iteration, percent){
+  return ((iteration/iterations) >= percent);
 }
