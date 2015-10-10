@@ -1,36 +1,46 @@
-function EscapeColorPicker(escapeColorToleranceList){
-  this.escapeColorToleranceList = escapeColorToleranceList;
-  this.index = 0;
+function EscapeColorPicker(escapePercentColorList){
+  this.escapePercentColorList = escapePercentColorList;
 }
 
-EscapeColorPicker.prototype.getEscapeColor(iterations, iteration){
-  if ((iteration/iterations) > escapeColorToleranceList[index].getPercent()){
+EscapeColorPicker.prototype.getEscapeColor = function(iterations, iteration){
 
-}
-  escapeColorToleranceList[index]
-}
+  var arrayIndex = chooseArrayIndex(iterations, iteration, this.escapePercentColorList);
+  var escapeColor = "white";
 
-incrementIndex = function() {
-  return ((iteration/iterations) > escapeColorToleranceList[index].getPercent())
-            && index != escapeColorToleranceList.size();
-}
+  if (arrayIndex > -1){
+    escapeColor = escapePercentColorList[arrayIndex].getColor();
+  }
 
-Complex.prototype.getSquare = function(){
-  real = (this.real * this.real) - (this.imaginary * this.imaginary);
-  imaginary = (2 * this.real * this.imaginary);
-  return new Complex(real, imaginary);
+  return escapeColor;
 }
 
-Complex.prototype.add = function(complex){
-  this.real += complex.getRealPart();
-  this.imaginary += complex.getImaginaryPart();
-  return this;
+EscapeColorPicker.prototype.addEscapePercentColor = function(escapePercentColor){
+  this.escapePercentColorList.push(escapePercentColor);
+  this.escapePercentColorList.sort(escapePercentColorListComparator())
 }
 
-Complex.prototype.getRealPart = function(){
-  return this.real;
+escapePercentColorListComparator = function(a,b){
+  return b.getPercent() - a.getPercent();
 }
 
-Complex.prototype.getImaginaryPart = function(){
-  return this.imaginary;
+chooseArrayIndex = function(iterations, iteration, escapePercentColorList) {
+  percent = (iteration/iterations);
+
+  if (percent < escapePercentColorList[0].getPercent()){
+    return -1;
+  }
+  else {
+    for(var i = 0; i < escapePercentColorList.length; i++){
+      if (escapePercentColorList.length == i+1) {
+        return i;
+      }
+      else if (!isWithinIterationPercent(iterations, iteration, this.escapePercentColorList[i+1].getPercent())){
+        return i;
+      }
+    }
+  }
+}
+
+isWithinIterationPercent = function(iterations, iteration, percent) {
+  return ((iteration/iterations) >= percent);
 }

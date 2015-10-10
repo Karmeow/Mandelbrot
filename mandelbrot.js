@@ -1,8 +1,8 @@
-//var canvasHeight = 5000;
-//var canvasWidth = 5000;
+var canvasHeight = 4000;
+var canvasWidth = 4000;
 
-var canvasHeight = window.innerHeight - 1;
-var canvasWidth = window.innerWidth - 1;
+// var canvasHeight = window.innerHeight - 1;
+// var canvasWidth = window.innerWidth - 1;
 
 // var minReal =
 // var maxReal =
@@ -17,9 +17,16 @@ var realFactor = (maxReal - minReal)/(canvasWidth-1);
 var imaginaryFactor = (maxImaginary - minImaginary)/(canvasHeight-1);
 var iterations = 1;
 
-var iterationColors = ["#0026ff", "#00bac8", "#00b768", "#00cb36", "#fff300"];
-
 var canDraw = true;
+
+var cyanColor = new EscapePercentColor(0.08, "rgb(110, 228, 203)")
+var greenColor = new EscapePercentColor(0.1, "rgb(73, 228, 144)");
+var purpleColor = new EscapePercentColor(0.2, "rgb(123, 140, 230)");
+//var cyanColor = new EscapePercentColor(0.8, "rgb(0, 252, 194"))
+
+var escapePercentColorList = [cyanColor, greenColor, purpleColor];
+
+var escapeColorPicker = new EscapeColorPicker(escapePercentColorList);
 
 window.onload = function(){
   mainDiv = document.getElementById("main");
@@ -42,41 +49,24 @@ function iterateMandelbrot(){
       var imaginaryPart = minImaginary + y * imaginaryFactor;
       var complex = new Complex(realPart, imaginaryPart);
 
-      if(drawMandelbrot(complex)){
-        ctx.fillRect(x, y, 1, 1);
-      }
+      pickPixelColor(complex);
+
+      ctx.fillRect(x, y, 1, 1);
     }
   }
 }
 
-function drawMandelbrot(complex){
-  canDraw = true;
+function pickPixelColor(complex){
   var zComplex = new Complex(complex.getRealPart(), complex.getImaginaryPart());
-  ctx.fillStyle = "black";
+  ctx.fillStyle = "white";
   for(var iteration = 0; iteration < iterations; iteration++){
 
     if(isOutOfBounds(zComplex)){
-      chooseEscapeColor(iteration);
+      ctx.fillStyle = escapeColorPicker.getEscapeColor(iterations, iteration);
       break;
     }
 
     zComplex = zComplex.getSquare().add(complex);
-  }
-
-  return canDraw;
-}
-
-function chooseEscapeColor(iteration){
-  canDraw = true;
-
-  if (isWithinIterationPercent(iteration, 0.5)){
-    ctx.fillStyle = "orange";
-  } else if (isWithinIterationPercent(iteration, 0.2)){
-    ctx.fillStyle = "green";
-  }
-
-  else{
-    canDraw = false;
   }
 }
 
@@ -87,8 +77,4 @@ function isOutOfBounds(complex){
 
 function square(number){
   return number*number;
-}
-
-function isWithinIterationPercent(iteration, percent){
-  return ((iteration/iterations) >= percent);
 }
